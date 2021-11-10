@@ -16,18 +16,16 @@ const nameText = queryString.get('input-text');
 let groceries;
 
 const groceriesCreate = function(form) {
+  debugger
   const groceryNameObject = form['grocery-name'];
-  const groceryAgeObject = form['grocery-age'];
   const grocery = {
     name: groceryNameObject.value,
-    age: groceryAgeObject.value
   };
   const successFunction = function() {
     groceryNameObject.value = '';
-    groceryAgeObject.value = '';
-    groceriesRead();
+    // groceriesRead();
   }
-  axios.post('http://localhost:3100/api/v1/groceries', grocery).then(successFunction);
+  axios.post('https://red-js-default-rtdb.firebaseio.com/groceries.json', grocery).then(successFunction);
 };
 
 const groceriesRead = function() {

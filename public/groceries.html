@@ -42,8 +42,8 @@
     </header>
     <div class="contents">
       <article>
-        <form class="form-inputs">
-          <input type="text" name="name" />
+        <form class="form-inputs" onsubmit="groceriesCreate(this); return false;">
+          <input type="text" name="grocery-name" />
           <button class="button-create"><span class="material-icons">edit</span></button>
         </form>
         <div class="div-table">
