@@ -16,10 +16,11 @@ const nameText = queryString.get('input-text');
 let groceries;
 
 const groceriesCreate = function(form) {
-  debugger
   const groceryNameObject = form['grocery-name'];
   const grocery = {
     name: groceryNameObject.value,
+    enter: moment().format('YYYY-MM-DD'),
+    expire: moment().add(7, 'days').format('YYYY-MM-DD')
   };
   const successFunction = function() {
     groceryNameObject.value = '';
