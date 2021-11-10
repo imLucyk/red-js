@@ -24,29 +24,29 @@ const groceriesCreate = function(form) {
   };
   const successFunction = function() {
     groceryNameObject.value = '';
-    // groceriesRead();
+    groceriesRead();
   }
   axios.post('https://red-js-default-rtdb.firebaseio.com/groceries.json', grocery).then(successFunction);
 };
 
 const groceriesRead = function() {
-  axios.get('http://localhost:3100/api/v1/groceries').then(function(response) {
-    const groceriesLogical = response.data;
-    groceries = groceriesLogical.groceries;
-    const tagDivParent = document.getElementById('tag-div-parent');
-    tagDivParent.innerHTML = '';
-    const tagDivChild = document.getElementById('tag-div-child');
+  axios.get('https://red-js-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
+    // debugger
+    groceries = response.data;
+    const tagTbodyParent = document.getElementById('tag-tbody-parent');
+    tagTbodyParent.innerHTML = '';
+    const tagTrChild = document.getElementById('tag-tr-child');
     for (let index in groceries) {
-      const newDivChild = tagDivChild.cloneNode(true);
-      tagDivParent.appendChild(newDivChild);
-      const groceriesNameObject = document.getElementsByName('groceries-name')[index];
-      const groceriesAgeObject = document.getElementsByName('groceries-age')[index];
-      const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
-      const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
-      groceriesNameObject.value = groceries[index].name;
-      groceriesAgeObject.value = groceries[index].age;
-      groceriesUpdateObject.index = index;
-      groceriesDeleteObject.index = index;
+      const newTrChild = tagTrChild.cloneNode(true);
+      tagTbodyParent.appendChild(newTrChild);
+      // const groceriesNameObject = document.getElementsByName('groceries-name')[index];
+      // const groceriesAgeObject = document.getElementsByName('groceries-age')[index];
+      // const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
+      // const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
+      // groceriesNameObject.value = groceries[index].name;
+      // groceriesAgeObject.value = groceries[index].age;
+      // groceriesUpdateObject.index = index;
+      // groceriesDeleteObject.index = index;
     }
     console.log('Readed', groceries);
   })
@@ -69,4 +69,4 @@ const groceriesUpdate = function(index) {
   axios.patch(url, grocery).then(groceriesRead);
 };
 
-// groceriesRead();
+groceriesRead();
