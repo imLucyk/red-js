@@ -48,19 +48,19 @@ const groceriesRead = function() {
       groceriesExpireObject.value = groceries[key].expire;
       // const groceriesAgeObject = document.getElementsByName('groceries-age')[index];
       // const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
-      // const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
+      const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
       // groceriesNameObject.value = groceries[index].name;
       // groceriesAgeObject.value = groceries[index].age;
       // groceriesUpdateObject.index = index;
-      // groceriesDeleteObject.index = index;
+      groceriesDeleteObject.key = key;
       index++;
     }
     console.log('Readed', groceries);
   })
 };
 
-const groceriesDelete = function(index) {
-  const url = 'http://localhost:3100/api/v1/groceries/' + index;
+const groceriesDelete = function(key) {
+  const url = 'https://red-js-default-rtdb.firebaseio.com/groceries/' + key + '.json';
   axios.delete(url).then(groceriesRead);
 };
 
