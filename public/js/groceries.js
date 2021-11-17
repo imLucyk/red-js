@@ -36,10 +36,16 @@ const groceriesRead = function() {
     const tagTbodyParent = document.getElementById('tag-tbody-parent');
     tagTbodyParent.innerHTML = '';
     const tagTrChild = document.getElementById('tag-tr-child');
-    for (let index in groceries) {
+    let index = 0;
+    for (let key in groceries) {
       const newTrChild = tagTrChild.cloneNode(true);
       tagTbodyParent.appendChild(newTrChild);
-      // const groceriesNameObject = document.getElementsByName('groceries-name')[index];
+      const groceriesNameObject = document.getElementsByName('groceries-name')[index];
+      groceriesNameObject.innerHTML = groceries[key].name;
+      const groceriesEnterObject = document.getElementsByName('groceries-enter')[index];
+      groceriesEnterObject.innerHTML = groceries[key].enter;
+      const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
+      groceriesExpireObject.value = groceries[key].expire;
       // const groceriesAgeObject = document.getElementsByName('groceries-age')[index];
       // const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
       // const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
@@ -47,6 +53,7 @@ const groceriesRead = function() {
       // groceriesAgeObject.value = groceries[index].age;
       // groceriesUpdateObject.index = index;
       // groceriesDeleteObject.index = index;
+      index++;
     }
     console.log('Readed', groceries);
   })
