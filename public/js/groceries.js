@@ -46,12 +46,8 @@ const groceriesRead = function() {
       groceriesEnterObject.innerHTML = groceries[key].enter;
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
       groceriesExpireObject.value = groceries[key].expire;
-      // const groceriesAgeObject = document.getElementsByName('groceries-age')[index];
-      // const groceriesUpdateObject = document.getElementsByName('groceries-update')[index];
+      groceriesExpireObject.key = key;
       const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
-      // groceriesNameObject.value = groceries[index].name;
-      // groceriesAgeObject.value = groceries[index].age;
-      // groceriesUpdateObject.index = index;
       groceriesDeleteObject.key = key;
       index++;
     }
@@ -65,13 +61,10 @@ const groceriesDelete = function(key) {
 };
 
 
-const groceriesUpdate = function(index) {
-  const url = 'http://localhost:3100/api/v1/groceries/' + index;
-  const name = document.getElementsByName('groceries-name')[index].value;
-  const age = document.getElementsByName('groceries-age')[index].value;
+const groceriesUpdate = function(object) {
+  const url = 'https://red-js-default-rtdb.firebaseio.com/groceries/' + object.key + '.json';
   const grocery = {
-    name: name,
-    age: age
+    expire: object.value
   };
   axios.patch(url, grocery).then(groceriesRead);
 };
