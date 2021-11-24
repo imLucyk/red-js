@@ -39,13 +39,14 @@ const itemsRead = function() {
     for (let key in items) {
       const newTrChild = tagTrChild.cloneNode(true);
       tagTbodyParent.appendChild(newTrChild);
-      // const itemsNameObject = document.getElementsByName('items-name')[index];
-      // itemsNameObject.innerHTML = items[key].name;
-      // const itemsEnterObject = document.getElementsByName('items-enter')[index];
-      // itemsEnterObject.innerHTML = items[key].enter;
-      // const itemsExpireObject = document.getElementsByName('items-expire')[index];
-      // itemsExpireObject.value = items[key].expire;
-      // itemsExpireObject.key = key;
+      const itemsNumberObject = document.getElementsByName('items-number')[index];
+      itemsNumberObject.innerHTML = index + 1;
+      const itemsNameObject = document.getElementsByName('items-name')[index];
+      itemsNameObject.innerHTML = items[key].name;
+      const itemsEnterObject = document.getElementsByName('items-enter')[index];
+      itemsEnterObject.innerHTML = items[key].enter;
+      const itemsExpireObject = document.getElementsByName('items-expire')[index];
+      itemsExpireObject.innerHTML = items[key].expire;
       // const itemsDeleteObject = document.getElementsByName('items-delete')[index];
       // itemsDeleteObject.key = key;
       // const itemsBoxObject = document.getElementsByName('items-checkbox')[index];
