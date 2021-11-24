@@ -63,6 +63,14 @@ const groceriesDelete = function(key) {
 };
 const itemsInOut = function(object) {
   console.log(object.checked)
+  // console.log(object.key)
+  // console.log(groceries)
+  // console.log(groceries[object.key])
+
+  if (object.checked) {
+    const grocery = groceries[object.key]
+    axios.post('https://red-js-default-rtdb.firebaseio.com/items.json', grocery);
+  }
 };
 
 
