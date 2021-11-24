@@ -49,8 +49,8 @@ const itemsRead = function() {
       itemsExpireObject.innerHTML = items[key].expire;
       const itemsDeleteObject = document.getElementsByName('items-delete')[index];
       itemsDeleteObject.key = key;
-      // const itemsBoxObject = document.getElementsByName('items-checkbox')[index];
-      // itemsBoxObject.key = key;
+      const itemsUpdateObject = document.getElementsByName('items-update')[index];
+      itemsUpdateObject.key = key;
       index++;
     }
     console.log('Readed', items);
@@ -77,12 +77,18 @@ const itemsInOut = function(object) {
 };
 
 
-const itemsUpdate = function(object) {
-  const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + object.key + '.json';
-  const item = {
-    expire: object.value
-  };
-  axios.patch(url, item).then(itemsRead);
+const itemsUpdate = function(key) {
+  const itemNameObject = document.getElementsByName('item-name')[0];
+  itemNameObject.value = items[key].name;
+  const itemEnterObject = document.getElementsByName('item-enter')[0];
+  itemEnterObject.value = items[key].enter;
+  const itemExpireObject = document.getElementsByName('item-expire')[0];
+  itemExpireObject.value = items[key].expire;
+  // const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + object.key + '.json';
+  // const item = {
+  //   expire: object.value
+  // };
+  // axios.patch(url, item).then(itemsRead);
 };
 
 itemsRead();
