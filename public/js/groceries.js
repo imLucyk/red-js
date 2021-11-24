@@ -69,7 +69,8 @@ const itemsInOut = function(object) {
 
   if (object.checked) {
     const grocery = groceries[object.key]
-    axios.post('https://red-js-default-rtdb.firebaseio.com/items.json', grocery);
+    const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + object.key + '.json';
+    axios.patch(url, grocery)
   }
 };
 
