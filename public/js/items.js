@@ -47,8 +47,8 @@ const itemsRead = function() {
       itemsEnterObject.innerHTML = items[key].enter;
       const itemsExpireObject = document.getElementsByName('items-expire')[index];
       itemsExpireObject.innerHTML = items[key].expire;
-      // const itemsDeleteObject = document.getElementsByName('items-delete')[index];
-      // itemsDeleteObject.key = key;
+      const itemsDeleteObject = document.getElementsByName('items-delete')[index];
+      itemsDeleteObject.key = key;
       // const itemsBoxObject = document.getElementsByName('items-checkbox')[index];
       // itemsBoxObject.key = key;
       index++;
