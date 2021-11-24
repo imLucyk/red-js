@@ -49,6 +49,8 @@ const groceriesRead = function() {
       groceriesExpireObject.key = key;
       const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
       groceriesDeleteObject.key = key;
+      const groceriesBoxObject = document.getElementsByName('groceries-checkbox')[index];
+      groceriesBoxObject.key = key;
       index++;
     }
     console.log('Readed', groceries);
@@ -58,6 +60,9 @@ const groceriesRead = function() {
 const groceriesDelete = function(key) {
   const url = 'https://red-js-default-rtdb.firebaseio.com/groceries/' + key + '.json';
   axios.delete(url).then(groceriesRead);
+};
+const itemsInOut = function(object) {
+  console.log(object.checked)
 };
 
 
