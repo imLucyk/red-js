@@ -67,10 +67,12 @@ const itemsInOut = function(object) {
   // console.log(groceries)
   // console.log(groceries[object.key])
 
+  const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + object.key + '.json';
   if (object.checked) {
-    const grocery = groceries[object.key]
-    const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + object.key + '.json';
-    axios.patch(url, grocery)
+    const grocery = groceries[object.key];
+    axios.patch(url, grocery);
+  } else {
+    axios.delete(url);
   }
 };
 
