@@ -77,18 +77,28 @@ const itemsInOut = function(object) {
 };
 
 
-const itemsUpdate = function(key) {
+const itemsUpdateModalOpen = function(key) {
   const itemNameObject = document.getElementsByName('item-name')[0];
   itemNameObject.value = items[key].name;
   const itemEnterObject = document.getElementsByName('item-enter')[0];
   itemEnterObject.value = items[key].enter;
   const itemExpireObject = document.getElementsByName('item-expire')[0];
   itemExpireObject.value = items[key].expire;
-  // const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + object.key + '.json';
-  // const item = {
-  //   expire: object.value
-  // };
-  // axios.patch(url, item).then(itemsRead);
+  const itemUpdateObject = document.getElementsByName('item-update')[0];
+  itemUpdateObject.key = key;
 };
+
+const itemsUpdate = function(key) {
+  const itemNameObject = document.getElementsByName('item-name')[0];
+  const itemEnterObject = document.getElementsByName('item-enter')[0];
+  const itemExpireObject = document.getElementsByName('item-expire')[0];
+  const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + key + '.json';
+  const item = {
+    name: itemNameObject.value,
+    enter: itemEnterObject.value,
+    expire: itemExpireObject.value
+  };
+  axios.patch(url, item).then(itemsRead);
+}
 
 itemsRead();
