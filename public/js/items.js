@@ -98,7 +98,10 @@ const itemsUpdate = function(key) {
     enter: itemEnterObject.value,
     expire: itemExpireObject.value
   };
-  axios.patch(url, item).then(itemsRead);
+  axios.patch(url, item).then(function() {
+    modalToggle();
+    itemsRead();
+  });
 }
 
 itemsRead();
