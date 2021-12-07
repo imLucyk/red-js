@@ -1,17 +1,9 @@
 const queryString = new URLSearchParams(window.location.search);
-const nameText = queryString.get('input-text');
-
-// const inputTextObjects = document.getElementsByName('input-text');
-// const inputTextObject = inputTextObjects[0];
-
-// const inputTextObject = document.getElementsByName('input-text')[0];
-// inputTextObject.value = nameText;
-
-// const inputHiddens = queryString.getAll('input-hidden');
-// const inputHidden = inputHiddens[0];
-
-// inputTextObject.focus();
-// inputTextObject.blur();
+const q = queryString.get('q');
+const qObject = document.getElementsByName('q')[0];
+qObject.value = q;
+qObject.focus();
+// qObject.blur();
 
 let items;
 
@@ -37,6 +29,10 @@ const itemsRead = function() {
     const tagTrChild = document.getElementById('tag-tr-child');
     let index = 0;
     for (let key in items) {
+      // TODO: items[key].name값과 q값을 indexOf로 비교해서 continue시킨다.
+      if (items[key].name.indexOf(q) === -1) {
+       continue; 
+      }
       const newTrChild = tagTrChild.cloneNode(true);
       tagTbodyParent.appendChild(newTrChild);
       const itemsNumberObject = document.getElementsByName('items-number')[index];
