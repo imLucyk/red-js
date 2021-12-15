@@ -4,6 +4,10 @@ const qObject = document.getElementsByName('q')[0];
 qObject.value = q;
 qObject.focus();
 // qObject.blur();
+const orderByName = queryString.get('orderByName') || '';
+const orderByType = queryString.get('orderByType') || '';
+// document.getElementById('expire-desc').classList.add('active');
+document.getElementById(orderByName + '-' + orderByType).classList.add('active');
 
 let items;
 
