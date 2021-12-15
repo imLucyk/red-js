@@ -35,9 +35,14 @@ const itemsRead = function() {
       items[key].key = key
     }
     items = _.orderBy(items, orderByName, orderByType);
-    for (let index in items) {
+    let index = 0;
+    let count = 0;
+    for (let k in items) {
+      if (items[k].expire > moment().add(3, 'days').format('YYYY-MM-DD')) {
+        count++;
+      }
       // TODO: items[key].name값과 q값을 indexOf로 비교해서 continue시킨다.
-      if (items[index].name.indexOf(q) === -1) {
+      if (items[k].name.indexOf(q) === -1) {
        continue; 
       }
       const newTrChild = tagTrChild.cloneNode(true);
@@ -45,15 +50,16 @@ const itemsRead = function() {
       const itemsNumberObject = document.getElementsByName('items-number')[index];
       itemsNumberObject.innerHTML = Number(index) + 1;
       const itemsNameObject = document.getElementsByName('items-name')[index];
-      itemsNameObject.innerHTML = items[index].name;
+      itemsNameObject.innerHTML = items[k].name;
       const itemsEnterObject = document.getElementsByName('items-enter')[index];
-      itemsEnterObject.innerHTML = items[index].enter;
+      itemsEnterObject.innerHTML = items[k].enter;
       const itemsExpireObject = document.getElementsByName('items-expire')[index];
-      itemsExpireObject.innerHTML = items[index].expire;
+      itemsExpireObject.innerHTML = items[k].expire;
       const itemsDeleteObject = document.getElementsByName('items-delete')[index];
-      itemsDeleteObject.key = items[index].key;
+      itemsDeleteObject.key = items[k].key;
       const itemsUpdateObject = document.getElementsByName('items-update')[index];
-      itemsUpdateObject.key = items[index].key;
+      itemsUpdateObject.key = items[k].key;
+      index++;
     }
     console.log('Readed', items);
   })
