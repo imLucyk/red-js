@@ -4,8 +4,8 @@ const qObject = document.getElementsByName('q')[0];
 qObject.value = q;
 qObject.focus();
 // qObject.blur();
-const orderByName = queryString.get('orderByName') || '';
-const orderByType = queryString.get('orderByType') || '';
+const orderByName = queryString.get('orderByName') || 'name';
+const orderByType = queryString.get('orderByType') || 'asc';
 // document.getElementById('expire-desc').classList.add('active');
 document.getElementById(orderByName + '-' + orderByType).classList.add('active');
 
@@ -34,7 +34,7 @@ const itemsRead = function() {
     for (let key in items) {
       items[key].key = key
     }
-    items = _.orderBy(items, 'name', 'desc');
+    items = _.orderBy(items, orderByName, orderByType);
     for (let index in items) {
       // TODO: items[key].name값과 q값을 indexOf로 비교해서 continue시킨다.
       if (items[index].name.indexOf(q) === -1) {
