@@ -27,27 +27,29 @@ const itemsRead = function() {
     const tagTbodyParent = document.getElementById('tag-tbody-parent');
     tagTbodyParent.innerHTML = '';
     const tagTrChild = document.getElementById('tag-tr-child');
-    let index = 0;
     for (let key in items) {
+      items[key].key = key
+    }
+    items = _.orderBy(items, 'name', 'desc');
+    for (let index in items) {
       // TODO: items[key].name값과 q값을 indexOf로 비교해서 continue시킨다.
-      if (items[key].name.indexOf(q) === -1) {
+      if (items[index].name.indexOf(q) === -1) {
        continue; 
       }
       const newTrChild = tagTrChild.cloneNode(true);
       tagTbodyParent.appendChild(newTrChild);
       const itemsNumberObject = document.getElementsByName('items-number')[index];
-      itemsNumberObject.innerHTML = index + 1;
+      itemsNumberObject.innerHTML = Number(index) + 1;
       const itemsNameObject = document.getElementsByName('items-name')[index];
-      itemsNameObject.innerHTML = items[key].name;
+      itemsNameObject.innerHTML = items[index].name;
       const itemsEnterObject = document.getElementsByName('items-enter')[index];
-      itemsEnterObject.innerHTML = items[key].enter;
+      itemsEnterObject.innerHTML = items[index].enter;
       const itemsExpireObject = document.getElementsByName('items-expire')[index];
-      itemsExpireObject.innerHTML = items[key].expire;
+      itemsExpireObject.innerHTML = items[index].expire;
       const itemsDeleteObject = document.getElementsByName('items-delete')[index];
-      itemsDeleteObject.key = key;
+      itemsDeleteObject.key = items[index].key;
       const itemsUpdateObject = document.getElementsByName('items-update')[index];
-      itemsUpdateObject.key = key;
-      index++;
+      itemsUpdateObject.key = items[index].key;
     }
     console.log('Readed', items);
   })
