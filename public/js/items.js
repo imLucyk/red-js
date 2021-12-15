@@ -1,6 +1,5 @@
 const queryString = new URLSearchParams(window.location.search);
 const q = queryString.get('q') || '';
-debugger
 const qObject = document.getElementsByName('q')[0];
 qObject.value = q;
 qObject.focus();
