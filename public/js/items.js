@@ -38,7 +38,7 @@ const itemsRead = function() {
     let index = 0;
     let count = 0;
     for (let k in items) {
-      if (items[k].expire > moment().add(3, 'days').format('YYYY-MM-DD')) {
+      if (items[k].expire < moment().add(3, 'days').format('YYYY-MM-DD')) {
         count++;
       }
       // TODO: items[key].name값과 q값을 indexOf로 비교해서 continue시킨다.
@@ -61,6 +61,8 @@ const itemsRead = function() {
       itemsUpdateObject.key = items[k].key;
       index++;
     }
+    const counter = document.getElementById('menu-items-counter');
+    counter.innerHTML = count;
     console.log('Readed', items);
   })
 };
