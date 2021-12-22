@@ -42,24 +42,24 @@ const groceriesRead = function() {
     for (let key in groceries) {
       groceries[key].key = key
     }
-    groceries = _.orderBy(groceries, orderByName, orderByType);
-    for (let index in groceries) {
+    let _groceries = _.orderBy(groceries, orderByName, orderByType);
+    for (let index in _groceries) {
       const newTrChild = tagTrChild.cloneNode(true);
       tagTbodyParent.appendChild(newTrChild);
       const groceriesNameObject = document.getElementsByName('groceries-name')[index];
-      groceriesNameObject.innerHTML = groceries[index].name;
+      groceriesNameObject.innerHTML = _groceries[index].name;
       const groceriesEnterObject = document.getElementsByName('groceries-enter')[index];
-      groceriesEnterObject.innerHTML = groceries[index].enter;
+      groceriesEnterObject.innerHTML = _groceries[index].enter;
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
-      groceriesExpireObject.value = groceries[index].expire;
-      groceriesExpireObject.key = groceries[index].key;
+      groceriesExpireObject.value = _groceries[index].expire;
+      groceriesExpireObject.key = _groceries[index].key;
       const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
-      groceriesDeleteObject.key = groceries[index].key;
+      groceriesDeleteObject.key = _groceries[index].key;
       const groceriesBoxObject = document.getElementsByName('groceries-checkbox')[index];
-      groceriesBoxObject.key = groceries[index].key;
+      groceriesBoxObject.key = _groceries[index].key;
       index++;
     }
-    console.log('Readed', groceries);
+    console.log('Readed', _groceries);
   })
 };
 
