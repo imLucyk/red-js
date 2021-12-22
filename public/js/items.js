@@ -34,15 +34,15 @@ const itemsRead = function() {
     for (let key in items) {
       items[key].key = key
     }
-    items = _.orderBy(items, orderByName, orderByType);
+    let _items = _.orderBy(items, orderByName, orderByType);
     let index = 0;
     let count = 0;
-    for (let k in items) {
-      if (items[k].expire < moment().add(3, 'days').format('YYYY-MM-DD')) {
+    for (let k in _items) {
+      if (_items[k].expire < moment().add(3, 'days').format('YYYY-MM-DD')) {
         count++;
       }
-      // TODO: items[key].name값과 q값을 indexOf로 비교해서 continue시킨다.
-      if (items[k].name.indexOf(q) === -1) {
+      // TODO: _items[key].name값과 q값을 indexOf로 비교해서 continue시킨다.
+      if (_items[k].name.indexOf(q) === -1) {
        continue; 
       }
       const newTrChild = tagTrChild.cloneNode(true);
@@ -50,20 +50,20 @@ const itemsRead = function() {
       const itemsNumberObject = document.getElementsByName('items-number')[index];
       itemsNumberObject.innerHTML = Number(index) + 1;
       const itemsNameObject = document.getElementsByName('items-name')[index];
-      itemsNameObject.innerHTML = items[k].name;
+      itemsNameObject.innerHTML = _items[k].name;
       const itemsEnterObject = document.getElementsByName('items-enter')[index];
-      itemsEnterObject.innerHTML = items[k].enter;
+      itemsEnterObject.innerHTML = _items[k].enter;
       const itemsExpireObject = document.getElementsByName('items-expire')[index];
-      itemsExpireObject.innerHTML = items[k].expire;
+      itemsExpireObject.innerHTML = _items[k].expire;
       const itemsDeleteObject = document.getElementsByName('items-delete')[index];
-      itemsDeleteObject.key = items[k].key;
+      itemsDeleteObject.key = _items[k].key;
       const itemsUpdateObject = document.getElementsByName('items-update')[index];
-      itemsUpdateObject.key = items[k].key;
+      itemsUpdateObject.key = _items[k].key;
       index++;
     }
     const counter = document.getElementById('menu-items-counter');
     counter.innerHTML = count;
-    console.log('Readed', items);
+    console.log('Readed', _items);
   })
 };
 
