@@ -1,5 +1,8 @@
 const queryString = new URLSearchParams(window.location.search);
-const nameText = queryString.get('input-text');
+const nameText = queryString.get('input-text') || '';
+const orderByName = queryString.get('orderByName') || 'name';
+const orderByType = queryString.get('orderByType') || 'asc';
+document.getElementById(orderByName + '-' + orderByType).classList.add('active');
 
 // const inputTextObjects = document.getElementsByName('input-text');
 // const inputTextObject = inputTextObjects[0];
@@ -36,21 +39,24 @@ const groceriesRead = function() {
     const tagTbodyParent = document.getElementById('tag-tbody-parent');
     tagTbodyParent.innerHTML = '';
     const tagTrChild = document.getElementById('tag-tr-child');
-    let index = 0;
     for (let key in groceries) {
+      groceries[key].key = key
+    }
+    groceries = _.orderBy(groceries, orderByName, orderByType);
+    for (let index in groceries) {
       const newTrChild = tagTrChild.cloneNode(true);
       tagTbodyParent.appendChild(newTrChild);
       const groceriesNameObject = document.getElementsByName('groceries-name')[index];
-      groceriesNameObject.innerHTML = groceries[key].name;
+      groceriesNameObject.innerHTML = groceries[index].name;
       const groceriesEnterObject = document.getElementsByName('groceries-enter')[index];
-      groceriesEnterObject.innerHTML = groceries[key].enter;
+      groceriesEnterObject.innerHTML = groceries[index].enter;
       const groceriesExpireObject = document.getElementsByName('groceries-expire')[index];
-      groceriesExpireObject.value = groceries[key].expire;
-      groceriesExpireObject.key = key;
+      groceriesExpireObject.value = groceries[index].expire;
+      groceriesExpireObject.key = groceries[index].key;
       const groceriesDeleteObject = document.getElementsByName('groceries-delete')[index];
-      groceriesDeleteObject.key = key;
+      groceriesDeleteObject.key = groceries[index].key;
       const groceriesBoxObject = document.getElementsByName('groceries-checkbox')[index];
-      groceriesBoxObject.key = key;
+      groceriesBoxObject.key = groceries[index].key;
       index++;
     }
     console.log('Readed', groceries);
