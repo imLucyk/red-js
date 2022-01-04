@@ -33,9 +33,25 @@ const groceriesCreate = function(form) {
 };
 
 const groceriesRead = function() {
-  axios.get('https://red-js-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
-    // debugger
-    groceries = response.data;
+  const promises = []
+  promises[0] = new Promise(function(resolve, reject) {
+    axios.get('https://red-js-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
+      resolve(response.data);
+    }).catch(function(error) {
+      reject(error);
+    })
+  })
+  promises[1] = new Promise(function(resolve, reject) {
+    axios.get('https://red-js-default-rtdb.firebaseio.com/items.json').then(function(response) {
+      resolve(response.data);
+    }).catch(function(error) {
+      reject(error);
+    })
+  })
+  Promise.all(promises).then(function(result) {
+    console.log(result);
+    groceries = result[0];
+    const items = result[1];
     const tagTbodyParent = document.getElementById('tag-tbody-parent');
     tagTbodyParent.innerHTML = '';
     const tagTrChild = document.getElementById('tag-tr-child');
@@ -57,10 +73,15 @@ const groceriesRead = function() {
       groceriesDeleteObject.key = _groceries[index].key;
       const groceriesBoxObject = document.getElementsByName('groceries-checkbox')[index];
       groceriesBoxObject.key = _groceries[index].key;
+      groceriesBoxObject.checked = items[_groceries[index].key] ? true : false;
+      // console.log(_groceries[index].key)
+      // console.log(items[_groceries[index].key])
       index++;
     }
     console.log('Readed', _groceries);
-  })
+  }).catch(function(error) {
+    console.error(error);
+  })  
 };
 
 const groceriesDelete = function(key) {
@@ -81,7 +102,6 @@ const itemsInOut = function(object) {
     axios.delete(url);
   }
 };
-
 
 const groceriesUpdate = function(object) {
   const url = 'https://red-js-default-rtdb.firebaseio.com/groceries/' + object.key + '.json';
