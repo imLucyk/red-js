@@ -34,10 +34,10 @@
         <a href="#!" id="menu-a-account" onclick="accountToggle(); return false;">
           <span class="material-icons-outlined">account_circle</span>
           <ul class="account-menu">
-            <li>Guest</li>
-            <li onclick="googleLogin();">Login</li>
-            <li>Hello 홍길동!</li>
-            <li onclick="googleLogout();">Logout</li>
+            <li id="guest" onclick="emailSignin();">Guest</li>
+            <li id="login" onclick="googleLogin();">Login</li>
+            <li id="hello">Hello <span id="name"></span>!</li>
+            <li id="logout" onclick="googleLogout();">Logout</li>
           </ul>
         </a>
       </div>
