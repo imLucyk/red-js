@@ -8,6 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
   <link href="./index.css" rel="stylesheet">
+  <script defer src="/__/firebase/9.4.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/9.4.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="./js/index.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -31,9 +35,9 @@
           <span class="material-icons-outlined">account_circle</span>
           <ul class="account-menu">
             <li>Guest</li>
-            <li>Login</li>
+            <li onclick="googleLogin();">Login</li>
             <li>Hello 홍길동!</li>
-            <li>Logout</li>
+            <li onclick="googleLogout();">Logout</li>
           </ul>
         </a>
       </div>
