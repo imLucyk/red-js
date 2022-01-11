@@ -22,11 +22,11 @@ const itemsCreate = function(form) {
     itemNameObject.value = '';
     itemsRead();
   }
-  axios.post('https://red-js-default-rtdb.firebaseio.com/items.json', item).then(successFunction);
+  axios.post('https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json', item).then(successFunction);
 };
 
 const itemsRead = function() {
-  axios.get('https://red-js-default-rtdb.firebaseio.com/items.json').then(function(response) {
+  axios.get('https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json').then(function(response) {
     items = response.data;
     const tagTbodyParent = document.getElementById('tag-tbody-parent');
     tagTbodyParent.innerHTML = '';
@@ -68,7 +68,7 @@ const itemsRead = function() {
 };
 
 const itemsDelete = function(key) {
-  const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + key + '.json';
+  const url = 'https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items/' + key + '.json';
   axios.delete(url).then(itemsRead);
 };
 const itemsInOut = function(object) {
@@ -77,7 +77,7 @@ const itemsInOut = function(object) {
   // console.log(items)
   // console.log(items[object.key])
 
-  const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + object.key + '.json';
+  const url = 'https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items/' + object.key + '.json';
   if (object.checked) {
     const item = items[object.key];
     axios.patch(url, item);
@@ -102,7 +102,7 @@ const itemsUpdate = function(key) {
   const itemNameObject = document.getElementsByName('item-name')[0];
   const itemEnterObject = document.getElementsByName('item-enter')[0];
   const itemExpireObject = document.getElementsByName('item-expire')[0];
-  const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + key + '.json';
+  const url = 'https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items/' + key + '.json';
   const item = {
     name: itemNameObject.value,
     enter: itemEnterObject.value,
@@ -113,5 +113,3 @@ const itemsUpdate = function(key) {
     itemsRead();
   });
 }
-
-itemsRead();

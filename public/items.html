@@ -11,6 +11,10 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://momentjs.com/downloads/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script defer src="/__/firebase/9.4.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/9.4.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="./js/index.js"></script>
   <script defer src="./js/items.js"></script>
 </head>
 <body>
@@ -34,10 +38,10 @@
         <a href="#" id="menu-a-account" onclick="accountToggle(); return false;">
           <span class="material-icons-outlined">account_circle</span>
           <ul class="account-menu">
-            <li>Guest</li>
-            <li>Login</li>
-            <li>Hello 홍길동!</li>
-            <li>Logout</li>
+            <li id="guest" onclick="emailSignin();">Guest</li>
+            <li id="login" onclick="googleLogin();">Login</li>
+            <li id="hello">Hello <span id="name"></span>!</li>
+            <li id="logout" onclick="googleLogout();">Logout</li>
           </ul>
         </a>
       </div>

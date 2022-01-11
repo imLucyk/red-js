@@ -19,6 +19,10 @@ document.getElementById(orderByName + '-' + orderByType).classList.add('active')
 let groceries;
 
 const groceriesCreate = function(form) {
+  if (!firebaseUser.uid) {
+    alert('로그인 해주세요.');
+    return;
+  }
   const groceryNameObject = form['grocery-name'];
   const grocery = {
     name: groceryNameObject.value,
@@ -29,20 +33,20 @@ const groceriesCreate = function(form) {
     groceryNameObject.value = '';
     groceriesRead();
   }
-  axios.post('https://red-js-default-rtdb.firebaseio.com/groceries.json', grocery).then(successFunction);
+  axios.post('https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/groceries.json', grocery).then(successFunction);
 };
 
 const groceriesRead = function() {
   const promises = []
   promises[0] = new Promise(function(resolve, reject) {
-    axios.get('https://red-js-default-rtdb.firebaseio.com/groceries.json').then(function(response) {
+    axios.get('https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/groceries.json').then(function(response) {
       resolve(response.data);
     }).catch(function(error) {
       reject(error);
     })
   })
   promises[1] = new Promise(function(resolve, reject) {
-    axios.get('https://red-js-default-rtdb.firebaseio.com/items.json').then(function(response) {
+    axios.get('https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json').then(function(response) {
       let count = 0;
       for (let k in response.data) {
         if (response.data[k].expire < moment().add(3, 'days').format('YYYY-MM-DD')) {
@@ -93,7 +97,7 @@ const groceriesRead = function() {
 };
 
 const groceriesDelete = function(key) {
-  const url = 'https://red-js-default-rtdb.firebaseio.com/groceries/' + key + '.json';
+  const url = 'https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/groceries/' + key + '.json';
   axios.delete(url).then(groceriesRead);
 };
 const itemsInOut = function(object) {
@@ -102,7 +106,7 @@ const itemsInOut = function(object) {
   // console.log(groceries)
   // console.log(groceries[object.key])
 
-  const url = 'https://red-js-default-rtdb.firebaseio.com/items/' + object.key + '.json';
+  const url = 'https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items/' + object.key + '.json';
   if (object.checked) {
     const grocery = groceries[object.key];
     axios.patch(url, grocery);
@@ -112,11 +116,9 @@ const itemsInOut = function(object) {
 };
 
 const groceriesUpdate = function(object) {
-  const url = 'https://red-js-default-rtdb.firebaseio.com/groceries/' + object.key + '.json';
+  const url = 'https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/groceries/' + object.key + '.json';
   const grocery = {
     expire: object.value
   };
   axios.patch(url, grocery).then(groceriesRead);
 };
-
-groceriesRead();

@@ -1,16 +1,36 @@
-firebase.auth().onAuthStateChanged(function(firebaseUser) {
-  console.log(firebaseUser);
-  if (firebaseUser) {
+let firebaseUser;
+firebase.auth().onAuthStateChanged(function(_firebaseUser) {
+  console.log(_firebaseUser);
+  if (_firebaseUser) {
+    firebaseUser = _firebaseUser
     document.getElementById('guest').style.display = 'none';
     document.getElementById('login').style.display = 'none';
     document.getElementById('hello').style.display = 'block';
     document.getElementById('logout').style.display = 'block';
-    document.getElementById('name').innerHTML = firebaseUser.displayName || 'guest';
+    document.getElementById('name').innerHTML = _firebaseUser.displayName || 'guest';
   } else {
     document.getElementById('guest').style.display = 'block';
     document.getElementById('login').style.display = 'block';
     document.getElementById('hello').style.display = 'none';
     document.getElementById('logout').style.display = 'none';
+    firebaseUser = {};
+  }
+  if (window.location.pathname === '/groceries.html') {
+    groceriesRead();
+  } else if (window.location.pathname === '/items.html') {
+    itemsRead();
+  } else if (window.location.pathname === '/index.html') {
+    axios.get('https://red-js-default-rtdb.firebaseio.com/' + firebaseUser.uid + '/items.json').then(function(response) {
+      let count = 0;
+      for (let k in response.data) {
+        if (response.data[k].expire < moment().add(3, 'days').format('YYYY-MM-DD')) {
+          count++;
+        }
+      }
+      const counter = document.getElementById('menu-items-counter');
+      counter.innerHTML = count;
+    });
+    // itemsRead();
   }
 });
 
