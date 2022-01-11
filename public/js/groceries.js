@@ -43,6 +43,14 @@ const groceriesRead = function() {
   })
   promises[1] = new Promise(function(resolve, reject) {
     axios.get('https://red-js-default-rtdb.firebaseio.com/items.json').then(function(response) {
+      let count = 0;
+      for (let k in response.data) {
+        if (response.data[k].expire < moment().add(3, 'days').format('YYYY-MM-DD')) {
+          count++;
+        }
+      }
+      const counter = document.getElementById('menu-items-counter');
+      counter.innerHTML = count;
       resolve(response.data);
     }).catch(function(error) {
       reject(error);
@@ -73,7 +81,7 @@ const groceriesRead = function() {
       groceriesDeleteObject.key = _groceries[index].key;
       const groceriesBoxObject = document.getElementsByName('groceries-checkbox')[index];
       groceriesBoxObject.key = _groceries[index].key;
-      groceriesBoxObject.checked = items[_groceries[index].key] ? true : false;
+      groceriesBoxObject.checked = items && items[_groceries[index].key] ? true : false;
       // console.log(_groceries[index].key)
       // console.log(items[_groceries[index].key])
       index++;
